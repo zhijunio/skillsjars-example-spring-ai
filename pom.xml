@@ -11,12 +11,12 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>cc.chensoul</groupId>
+    <groupId>io.zhijun</groupId>
     <artifactId>skillsjars-example-spring-ai</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>skillsjars-example-spring-ai</name>
     <description>Demo project for Spring Boot</description>
-    <url>https://github.com/chensoul/skillsjars-example-spring-ai</url>
+    <url>https://github.com/zhijunio/skillsjars-example-spring-ai</url>
 
     <licenses>
         <license>
@@ -28,8 +28,8 @@
 
     <developers>
         <developer>
-            <id>chensoul</id>
-            <name>ChenSoul</name>
+            <id>zhijunio</id>
+            <name>zhijunio</name>
             <roles>
                 <role>lead</role>
             </roles>
@@ -37,9 +37,9 @@
     </developers>
 
     <scm>
-        <url>https://github.com/chensoul/skillsjars-example-spring-ai</url>
-        <connection>scm:git:git://github.com/chensoul/skillsjars-example-spring-ai.git</connection>
-        <developerConnection>scm:git:git@github.com:chensoul/skillsjars-example-spring-ai.git</developerConnection>
+        <url>https://github.com/zhijunio/skillsjars-example-spring-ai</url>
+        <connection>scm:git:git://github.com/zhijunio/skillsjars-example-spring-ai.git</connection>
+        <developerConnection>scm:git:git@github.com:zhijunio/skillsjars-example-spring-ai.git</developerConnection>
     </scm>
 
     <properties>
