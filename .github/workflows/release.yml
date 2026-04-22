@@ -95,7 +95,7 @@ jobs:
 
           ./mvnw versions:set -DnewVersion=${NEXT_VERSION} -B
           git add pom.xml
-          git commit -m "chore: bump to next development version ${{ NEXT_VERSION }}"
+          git commit -m "chore: bump to next development version ${NEXT_VERSION}"
           git push origin main
 
       - name: Notify on failure
