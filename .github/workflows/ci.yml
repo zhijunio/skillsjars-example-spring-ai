@@ -36,8 +36,8 @@ jobs:
       - name: Run tests
         run: ./mvnw test -B
 
-      - name: Check code style
-        run: ./mvnw checkstyle:check -B
+      - name: Check code format (Spotless)
+        run: ./mvnw spotless:check -B
         continue-on-error: true
 
       - name: Upload test results
