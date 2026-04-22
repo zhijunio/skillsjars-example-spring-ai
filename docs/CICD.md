@@ -94,7 +94,9 @@ Manual workflow for releasing to Maven Central.
 | Tests | Maven Surefire | Validates functionality |
 | Code Style | Checkstyle | Enforces Google Java Style |
 | Dependencies | Enforcer | Version requirements |
-| Security | OWASP Dependency Check | Vulnerable dependencies |
+| Security | Trivy | Vulnerable dependencies (fast scan) |
+
+> **Note:** Trivy replaces OWASP Dependency Check for faster scan times. OWASP is still available locally: `./mvnw dependency-check:check`
 
 ## Required Secrets
 
@@ -173,9 +175,23 @@ Or in CI, modify `ci.yml`:
     MAVEN_OPTS: "-Xmx2048m"
 ```
 
-### Dependency Check Fails
+### Dependency Check Fails (Trivy)
 
-1. Review the OWASP report in the workflow artifacts
+1. View the GitHub Security tab for vulnerability details
+2. Update the vulnerable dependency
+3. If false positive, add to `.trivyignore` in project root
+
+Example `.trivyignore`:
+```
+# Accept the risk of CVE-2021-XXXX
+CVE-2021-XXXX
+```
+
+### OWASP Dependency Check (Local Only)
+
+If running OWASP locally for deeper analysis:
+
+1. Review the report in `target/dependency-check-report.html`
 2. Update vulnerable dependencies
 3. If false positive, add suppression in `dependency-check-suppressions.xml`
 
