@@ -93,7 +93,11 @@ skillsjars-example-spring-ai/
 │   │   └── release.yml               # Manual release workflow
 │   └── CODEOWNERS                    # Code review responsibilities
 ├── docs/
-│   └── CICD.md                       # CI/CD guide and documentation
+│   ├── CICD.md                       # CI/CD guide and documentation
+│   ├── MONITORING.md                 # Observability and monitoring guide
+│   ├── PRE_LAUNCH_CHECKLIST.md       # Pre-launch verification checklist
+│   └── RELEASE_RUNBOOK.md            # Step-by-step release instructions
+├── .env.example                      # Environment variable template
 ├── LICENSE                           # Apache 2.0 License
 ├── pom.xml                           # Maven build configuration
 ├── README.md                         # Project documentation
@@ -233,6 +237,9 @@ A: See [docs/CICD.md](docs/CICD.md) for complete pipeline documentation.
 - [CI/CD Guide](docs/CICD.md)
 - [Contributing Guidelines](CONTRIBUTING.md)
 - [Security Policy](SECURITY.md)
+- [Pre-Launch Checklist](docs/PRE_LAUNCH_CHECKLIST.md)
+- [Release Runbook](docs/RELEASE_RUNBOOK.md)
+- [Monitoring Guide](docs/MONITORING.md)
 
 ## License
 
