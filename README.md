@@ -206,12 +206,16 @@ The project is configured with automated release workflow to Maven Central.
 
 ### Required Secrets
 
+Configure these in GitHub Repository Settings → Settings → Secrets and variables → Actions:
+
 | Secret | Description |
 |--------|-------------|
 | `MAVEN_USERNAME` | Sonatype Central username |
 | `MAVEN_PASSWORD` | Sonatype Central password |
-| `GPG_SECRET_KEY` | GPG private key |
+| `GPG_SECRET_KEY` | GPG private key (armored) |
 | `GPG_PASSPHRASE` | GPG private key passphrase |
+
+> See [docs/SECREETS.md](docs/SECRETS.md) for detailed setup instructions.
 
 ## Security Considerations
 
