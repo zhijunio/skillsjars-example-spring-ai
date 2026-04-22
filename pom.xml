@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>4.1.0-M2</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath></relativePath>
+        <!-- lookup parent from repository -->
     </parent>
 
     <groupId>io.zhijun</groupId>
@@ -37,10 +36,17 @@
     </developers>
 
     <scm>
-        <url>https://github.com/zhijunio/skillsjars-example-spring-ai</url>
         <connection>scm:git:git://github.com/zhijunio/skillsjars-example-spring-ai.git</connection>
         <developerConnection>scm:git:git@github.com:zhijunio/skillsjars-example-spring-ai.git</developerConnection>
+        <url>https://github.com/zhijunio/skillsjars-example-spring-ai</url>
     </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>central</id>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <properties>
         <java.version>21</java.version>
@@ -55,8 +61,19 @@
         <central-publishing-maven-plugin.version>0.10.0</central-publishing-maven-plugin.version>
         <spotless-maven-plugin.version>2.44.0</spotless-maven-plugin.version>
         <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
-        <dependency-check-maven.version>12.1.0</dependency-check-maven.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-bom</artifactId>
+                <version>${spring-ai.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -81,18 +98,6 @@
             <version>2026_02_25-3d59511</version>
         </dependency>
     </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.ai</groupId>
-                <artifactId>spring-ai-bom</artifactId>
-                <version>${spring-ai.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>
@@ -126,7 +131,7 @@
                                 <requireMavenVersion>
                                     <version>[3.9,)</version>
                                 </requireMavenVersion>
-                                <banDuplicatePomDependencyVersions/>
+                                <banDuplicatePomDependencyVersions></banDuplicatePomDependencyVersions>
                                 <!-- 当多个依赖传递引入同一个库的不同版本时，强制使用最高版本  -->
                                 <requireUpperBoundDeps>
                                     <excludes>
@@ -153,7 +158,7 @@
                             <version>1.24.0</version>
                             <style>GOOGLE</style>
                         </googleJavaFormat>
-                        <toggleOffOn/>
+                        <toggleOffOn></toggleOffOn>
                     </java>
                     <pom>
                         <sortPom>
@@ -165,10 +170,10 @@
                 <executions>
                     <execution>
                         <id>spotless-check</id>
-                        <phase>verify</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -244,10 +249,10 @@
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
-                                <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <phase>verify</phase>
                                 <configuration>
                                     <gpgArguments>
                                         <arg>--pinentry-mode</arg>
@@ -293,12 +298,5 @@
             </build>
         </profile>
     </profiles>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>central</id>
-            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
 
 </project>
