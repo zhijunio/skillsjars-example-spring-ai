@@ -20,11 +20,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
   - Comprehensive CI/CD guide (`docs/CICD.md`)
   - Contributing guidelines (`CONTRIBUTING.md`)
   - Security policy (`SECURITY.md`)
-  - Code of conduct
+  - Pre-launch checklist (`docs/PRE_LAUNCH_CHECKLIST.md`)
+  - Release runbook (`docs/RELEASE_RUNBOOK.md`)
+  - Monitoring guide (`docs/MONITORING.md`)
 - GitHub templates
   - Issue templates (bug report, feature request)
   - Pull request template
   - CODEOWNERS configuration
+- `.env.example` for environment variable template
 - `.editorconfig` for consistent editor settings
 
 ### Changed
