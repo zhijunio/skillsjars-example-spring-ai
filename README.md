@@ -36,6 +36,31 @@ This example demonstrates how to integrate [SkillsJars](https://www.skillsjars.c
 
 ### Configure Environment Variables
 
+**Option 1: Using .env file (Recommended)**
+
+1. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Edit `.env` and fill in your values:
+   ```
+   OPENAI_API_BASE_URL=https://api.openai.com/v1
+   OPENAI_API_KEY=sk-your-api-key-here
+   OPENAI_API_MODEL=gpt-4o
+   ```
+
+3. Load environment variables:
+   ```bash
+   # Using dotenv-cli
+   dotenv -- ./mvnw spring-boot:run
+
+   # Or using shell
+   set -a && source .env && set +a && ./mvnw spring-boot:run
+   ```
+
+**Option 2: Export variables manually**
+
 ```bash
 # macOS / Linux
 export OPENAI_API_BASE_URL=https://api.openai.com/v1
@@ -47,6 +72,8 @@ $env:OPENAI_API_BASE_URL="https://api.openai.com/v1"
 $env:OPENAI_API_KEY="your-api-key-here"
 $env:OPENAI_API_MODEL="gpt-4o"
 ```
+
+> **Note:** `.env` files are gitignored. Never commit `.env` to version control.
 
 ### Run the Application
 
@@ -214,6 +241,34 @@ MyLoggingAdvisor.builder()
     .showAssistantText(true)
     .build()
 ```
+
+### Q: How do I configure environment variables with .env?
+
+A: The project includes a `.env.example` template file:
+
+1. **Copy the template:**
+   ```bash
+   cp .env.example .env
+   ```
+
+2. **Fill in your values:**
+   ```bash
+   OPENAI_API_BASE_URL=https://api.openai.com/v1
+   OPENAI_API_KEY=sk-your-actual-api-key
+   OPENAI_API_MODEL=gpt-4o
+   ```
+
+3. **Load and run:**
+   ```bash
+   # Option A: Using dotenv-cli (install: npm i -g dotenv-cli)
+   dotenv -- ./mvnw spring-boot:run
+
+   # Option B: Using shell
+   set -a && source .env && set +a && ./mvnw spring-boot:run
+   ```
+
+> **Important:** `.env` is gitignored. Never commit it to version control.
+> See [docs/MONITORING.md](docs/MONITORING.md) for more details.
 
 ### Q: How to contribute code?
 
