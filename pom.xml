@@ -61,6 +61,8 @@
         <central-publishing-maven-plugin.version>0.10.0</central-publishing-maven-plugin.version>
         <spotless-maven-plugin.version>2.44.0</spotless-maven-plugin.version>
         <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
+        <palantir-java-format.version>2.50.0</palantir-java-format.version>
+        <spring-javaformat-maven-plugin.version>0.0.43</spring-javaformat-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -155,7 +157,7 @@
                 <configuration>
                     <java>
                         <palantirJavaFormat>
-                            <version>2.50.0</version>
+                            <version>${palantir-java-format.version}</version>
                         </palantirJavaFormat>
                         <toggleOffOn></toggleOffOn>
                     </java>
