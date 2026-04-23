@@ -12,7 +12,7 @@
 
     <groupId>io.zhijun</groupId>
     <artifactId>skillsjars-example-spring-ai</artifactId>
-    <version>0.0.5-SNAPSHOT</version>
+    <version>0.0.6-SNAPSHOT</version>
     <name>skillsjars-example-spring-ai</name>
     <description>Demo project for Spring Boot</description>
     <url>https://github.com/zhijunio/skillsjars-example-spring-ai</url>
