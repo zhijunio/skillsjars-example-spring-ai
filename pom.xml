@@ -154,10 +154,9 @@
                 <version>${spotless-maven-plugin.version}</version>
                 <configuration>
                     <java>
-                        <googleJavaFormat>
-                            <version>1.24.0</version>
-                            <style>GOOGLE</style>
-                        </googleJavaFormat>
+                        <palantirJavaFormat>
+                            <version>2.50.0</version>
+                        </palantirJavaFormat>
                         <toggleOffOn></toggleOffOn>
                     </java>
                     <pom>

@@ -14,169 +14,166 @@ import org.springframework.util.StringUtils;
 
 public class MyLoggingAdvisor implements BaseAdvisor {
 
-  private static final Pattern API_KEY_PATTERN =
-      Pattern.compile(
-          "(?i)(api[_-]?key|key|token|secret|password|bearer)\\s*[:=]\\s*[\"']?([a-zA-Z0-9]{20,})[\"']?");
-  private static final String REDACTED_VALUE = "[REDACTED]";
+    private static final Pattern API_KEY_PATTERN = Pattern.compile(
+            "(?i)(api[_-]?key|key|token|secret|password|bearer)\\s*[:=]\\s*[\"']?([a-zA-Z0-9]{20,})[\"']?");
+    private static final String REDACTED_VALUE = "[REDACTED]";
 
-  private final int order;
-  private final boolean showSystemMessage;
-  private final boolean showAvailableTools;
-  private final boolean showUserText;
-  private final boolean showAssistantText;
+    private final int order;
+    private final boolean showSystemMessage;
+    private final boolean showAvailableTools;
+    private final boolean showUserText;
+    private final boolean showAssistantText;
 
-  private MyLoggingAdvisor(
-      int order,
-      boolean showSystemMessage,
-      boolean showAvailableTools,
-      boolean showUserText,
-      boolean showAssistantText) {
-    this.order = order;
-    this.showSystemMessage = showSystemMessage;
-    this.showAvailableTools = showAvailableTools;
-    this.showUserText = showUserText;
-    this.showAssistantText = showAssistantText;
-  }
-
-  @Override
-  public int getOrder() {
-    return this.order;
-  }
-
-  @Override
-  public ChatClientRequest before(ChatClientRequest chatClientRequest, AdvisorChain advisorChain) {
-
-    StringBuilder sb = new StringBuilder("\nUSER: ");
-
-    if (this.showSystemMessage && chatClientRequest.prompt().getSystemMessage() != null) {
-      sb.append(
-          "\n - SYSTEM: " + first(chatClientRequest.prompt().getSystemMessage().getText(), 6000));
+    private MyLoggingAdvisor(
+            int order,
+            boolean showSystemMessage,
+            boolean showAvailableTools,
+            boolean showUserText,
+            boolean showAssistantText) {
+        this.order = order;
+        this.showSystemMessage = showSystemMessage;
+        this.showAvailableTools = showAvailableTools;
+        this.showUserText = showUserText;
+        this.showAssistantText = showAssistantText;
     }
 
-    if (this.showAvailableTools) {
-      Object tools = "No Tools";
-
-      if (chatClientRequest.prompt().getOptions() instanceof ToolCallingChatOptions toolOptions) {
-        tools =
-            toolOptions.getToolCallbacks().stream()
-                .map(tc -> tc.getToolDefinition().name())
-                .toList();
-      }
-
-      sb.append("\n - TOOLS: " + ModelOptionsUtils.toJsonString(tools));
+    @Override
+    public int getOrder() {
+        return this.order;
     }
 
-    Message lastMessage = chatClientRequest.prompt().getLastUserOrToolResponseMessage();
+    @Override
+    public ChatClientRequest before(ChatClientRequest chatClientRequest, AdvisorChain advisorChain) {
 
-    if (lastMessage.getMessageType() == MessageType.TOOL) {
-      ToolResponseMessage toolResponseMessage = (ToolResponseMessage) lastMessage;
-      for (var toolResponse : toolResponseMessage.getResponses()) {
-        var tr = toolResponse.name() + ": " + first(toolResponse.responseData(), 3000);
-        sb.append("\n - TOOL-RESPONSE: " + tr);
-      }
-    } else if (lastMessage.getMessageType() == MessageType.USER) {
-      if (this.showUserText && StringUtils.hasText(lastMessage.getText())) {
-        sb.append("\n - TEXT: " + first(lastMessage.getText(), 3000));
-      }
-    }
+        StringBuilder sb = new StringBuilder("\nUSER: ");
 
-    System.out.println(sb.toString());
-
-    return chatClientRequest;
-  }
-
-  @Override
-  public ChatClientResponse after(
-      ChatClientResponse chatClientResponse, AdvisorChain advisorChain) {
-    StringBuilder sb = new StringBuilder("\nASSISTANT: ");
-
-    if (chatClientResponse.chatResponse() == null
-        || chatClientResponse.chatResponse().getResults() == null) {
-      sb.append(" No chat response ");
-      System.out.println(sb.toString());
-      return chatClientResponse;
-    }
-
-    for (var generation : chatClientResponse.chatResponse().getResults()) {
-      var message = generation.getOutput();
-      if (message.getToolCalls() != null) {
-        for (var toolCall : message.getToolCalls()) {
-          sb.append("\n - TOOL-CALL: ")
-              .append(toolCall.name())
-              .append(" (")
-              .append(toolCall.arguments())
-              .append(")");
+        if (this.showSystemMessage && chatClientRequest.prompt().getSystemMessage() != null) {
+            sb.append("\n - SYSTEM: "
+                    + first(chatClientRequest.prompt().getSystemMessage().getText(), 6000));
         }
-      }
 
-      if (this.showAssistantText && StringUtils.hasText(message.getText())) {
-        sb.append("\n - TEXT: " + first(message.getText(), 2000));
-      }
+        if (this.showAvailableTools) {
+            Object tools = "No Tools";
+
+            if (chatClientRequest.prompt().getOptions() instanceof ToolCallingChatOptions toolOptions) {
+                tools = toolOptions.getToolCallbacks().stream()
+                        .map(tc -> tc.getToolDefinition().name())
+                        .toList();
+            }
+
+            sb.append("\n - TOOLS: " + ModelOptionsUtils.toJsonString(tools));
+        }
+
+        Message lastMessage = chatClientRequest.prompt().getLastUserOrToolResponseMessage();
+
+        if (lastMessage.getMessageType() == MessageType.TOOL) {
+            ToolResponseMessage toolResponseMessage = (ToolResponseMessage) lastMessage;
+            for (var toolResponse : toolResponseMessage.getResponses()) {
+                var tr = toolResponse.name() + ": " + first(toolResponse.responseData(), 3000);
+                sb.append("\n - TOOL-RESPONSE: " + tr);
+            }
+        } else if (lastMessage.getMessageType() == MessageType.USER) {
+            if (this.showUserText && StringUtils.hasText(lastMessage.getText())) {
+                sb.append("\n - TEXT: " + first(lastMessage.getText(), 3000));
+            }
+        }
+
+        System.out.println(sb.toString());
+
+        return chatClientRequest;
     }
 
-    System.out.println(sb.toString());
+    @Override
+    public ChatClientResponse after(ChatClientResponse chatClientResponse, AdvisorChain advisorChain) {
+        StringBuilder sb = new StringBuilder("\nASSISTANT: ");
 
-    return chatClientResponse;
-  }
+        if (chatClientResponse.chatResponse() == null
+                || chatClientResponse.chatResponse().getResults() == null) {
+            sb.append(" No chat response ");
+            System.out.println(sb.toString());
+            return chatClientResponse;
+        }
 
-  private String first(String text, int n) {
-    if (text.length() <= n) {
-      return redactSensitiveData(text);
-    }
-    return redactSensitiveData(text.substring(0, n)) + "...";
-  }
+        for (var generation : chatClientResponse.chatResponse().getResults()) {
+            var message = generation.getOutput();
+            if (message.getToolCalls() != null) {
+                for (var toolCall : message.getToolCalls()) {
+                    sb.append("\n - TOOL-CALL: ")
+                            .append(toolCall.name())
+                            .append(" (")
+                            .append(toolCall.arguments())
+                            .append(")");
+                }
+            }
 
-  private String redactSensitiveData(String text) {
-    if (text.isEmpty()) {
-      return text;
-    }
-    return API_KEY_PATTERN.matcher(text).replaceAll("$1=" + REDACTED_VALUE);
-  }
+            if (this.showAssistantText && StringUtils.hasText(message.getText())) {
+                sb.append("\n - TEXT: " + first(message.getText(), 2000));
+            }
+        }
 
-  public static Builder builder() {
-    return new Builder();
-  }
+        System.out.println(sb.toString());
 
-  public static class Builder {
-
-    private int order = 0;
-    private boolean showSystemMessage = true;
-    private boolean showAvailableTools = true;
-    private boolean showAssistantText = true;
-    private boolean showUserText = true;
-
-    public Builder order(int order) {
-      this.order = order;
-      return this;
+        return chatClientResponse;
     }
 
-    public Builder showSystemMessage(boolean showSystemMessage) {
-      this.showSystemMessage = showSystemMessage;
-      return this;
+    private String first(String text, int n) {
+        if (text.length() <= n) {
+            return redactSensitiveData(text);
+        }
+        return redactSensitiveData(text.substring(0, n)) + "...";
     }
 
-    public Builder showAvailableTools(boolean showAvailableTools) {
-      this.showAvailableTools = showAvailableTools;
-      return this;
+    private String redactSensitiveData(String text) {
+        if (text.isEmpty()) {
+            return text;
+        }
+        return API_KEY_PATTERN.matcher(text).replaceAll("$1=" + REDACTED_VALUE);
     }
 
-    public Builder showAssistantText(boolean showAssistantText) {
-      this.showAssistantText = showAssistantText;
-      return this;
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public Builder showUserText(boolean showUserText) {
-      this.showUserText = showUserText;
-      return this;
-    }
+    public static class Builder {
 
-    public MyLoggingAdvisor build() {
-      return new MyLoggingAdvisor(
-          this.order,
-          this.showSystemMessage,
-          this.showAvailableTools,
-          this.showUserText,
-          this.showAssistantText);
+        private int order = 0;
+        private boolean showSystemMessage = true;
+        private boolean showAvailableTools = true;
+        private boolean showAssistantText = true;
+        private boolean showUserText = true;
+
+        public Builder order(int order) {
+            this.order = order;
+            return this;
+        }
+
+        public Builder showSystemMessage(boolean showSystemMessage) {
+            this.showSystemMessage = showSystemMessage;
+            return this;
+        }
+
+        public Builder showAvailableTools(boolean showAvailableTools) {
+            this.showAvailableTools = showAvailableTools;
+            return this;
+        }
+
+        public Builder showAssistantText(boolean showAssistantText) {
+            this.showAssistantText = showAssistantText;
+            return this;
+        }
+
+        public Builder showUserText(boolean showUserText) {
+            this.showUserText = showUserText;
+            return this;
+        }
+
+        public MyLoggingAdvisor build() {
+            return new MyLoggingAdvisor(
+                    this.order,
+                    this.showSystemMessage,
+                    this.showAvailableTools,
+                    this.showUserText,
+                    this.showAssistantText);
+        }
     }
-  }
 }
