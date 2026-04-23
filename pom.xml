@@ -51,21 +51,19 @@
     <properties>
         <java.version>21</java.version>
         <spring-ai.version>2.0.0-M4</spring-ai.version>
-
-        <!-- Dependency versions -->
         <spring-ai-agent-utils.version>0.7.0</spring-ai-agent-utils.version>
         <skillsjars-pdf.version>2026_02_25-3d59511</skillsjars-pdf.version>
-        <skillsjars-maven-plugin.version>0.0.6</skillsjars-maven-plugin.version>
 
         <!-- Plugin versions -->
         <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
         <maven-deploy-plugin.version>3.1.4</maven-deploy-plugin.version>
+        <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
         <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
         <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
         <central-publishing-maven-plugin.version>0.10.0</central-publishing-maven-plugin.version>
         <spotless-maven-plugin.version>2.44.0</spotless-maven-plugin.version>
-        <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
+        <skillsjars-maven-plugin.version>0.0.6</skillsjars-maven-plugin.version>
         <palantir-java-format.version>2.50.0</palantir-java-format.version>
         <spring-javaformat-maven-plugin.version>0.0.43</spring-javaformat-maven-plugin.version>
     </properties>
