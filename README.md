@@ -21,7 +21,7 @@ This example demonstrates how to integrate [SkillsJars](https://www.skillsjars.c
 | Component | Version |
 |-----------|---------|
 | Java | 21 |
-| Spring Boot | 4.0.5 |
+| Spring Boot | 4.1.0-M2 |
 | Spring AI | 2.0.0-M4 |
 | spring-ai-agent-utils | 0.7.0 |
 | SkillsJars PDF | 2026_02_25-3d59511 |
