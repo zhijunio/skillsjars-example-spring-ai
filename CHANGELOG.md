@@ -9,23 +9,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 ### Added
 - CI/CD pipelines with GitHub Actions
   - Main CI build with tests and security audit
-  - PR validation with title format checking
   - Automatic SNAPSHOT publishing to Maven Central
   - Manual release workflow with GPG signing
 - Quality gates
   - Maven Enforcer for version requirements
-  - Checkstyle for code style validation
-  - OWASP Dependency Check for security scanning
+  - Spotless for code style validation
+  - Trivy for security scanning
 - Documentation
-  - Comprehensive CI/CD guide (`docs/CICD.md`)
-  - Contributing guidelines (`CONTRIBUTING.md`)
-  - Security policy (`SECURITY.md`)
-  - Pre-launch checklist (`docs/PRE_LAUNCH_CHECKLIST.md`)
-  - Release runbook (`docs/RELEASE_RUNBOOK.md`)
-  - Monitoring guide (`docs/MONITORING.md`)
+  - Comprehensive CI/CD guide
+  - Pre-launch checklist
+  - Release runbook
 - GitHub templates
-  - Issue templates (bug report, feature request)
-  - Pull request template
   - CODEOWNERS configuration
 - `.env.example` for environment variable template
 - `.editorconfig` for consistent editor settings
@@ -40,6 +34,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
   - Streamlined Builder pattern formatting
 - Updated all documentation to English
 - Changed Maven Central `autoPublish` from `true` to `false` for safety
+- **CI/CD**: Migrated to reusable workflows from `zhijun-io/workflows`
+- **CI/CD**: Replaced Checkstyle with Spotless for faster code formatting (2-3x improvement)
+- **CI/CD**: Replaced OWASP Dependency Check with Trivy for faster security scans
 
 ### Fixed
 - Java version configuration mismatch between `pom.xml` and `.sdkmanrc`
@@ -51,12 +48,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - Added log redaction for API keys, tokens, and other sensitive data
 - Added security warning for `ShellTools` arbitrary command execution
 - Improved release process with manual confirmation step
-- Added OWASP Dependency Check to CI pipeline
+- Added Trivy security scanning to CI pipeline
 - Configured GitHub Secrets for sensitive credentials
 
 ### Removed
 - Unnecessary local variable assignments in Builder patterns
 - Excessive blank lines in class declarations
+- `pr-validation.yml` - consolidated into main CI workflow
+- Issue templates and documentation templates (simplified project structure)
 
 ---
 

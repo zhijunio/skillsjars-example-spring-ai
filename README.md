@@ -116,15 +116,9 @@ skillsjars-example-spring-ai/
 │   ├── PULL_REQUEST_TEMPLATE.md      # PR submission template
 │   ├── workflows/
 │   │   ├── ci.yml                    # Main CI build pipeline
-│   │   ├── pr-validation.yml         # PR validation checks
 │   │   ├── publish-snapshot.yml      # Auto-publish snapshots
 │   │   └── release.yml               # Manual release workflow
 │   └── CODEOWNERS                    # Code review responsibilities
-├── docs/
-│   ├── CICD.md                       # CI/CD guide and documentation
-│   ├── MONITORING.md                 # Observability and monitoring guide
-│   ├── PRE_LAUNCH_CHECKLIST.md       # Pre-launch verification checklist
-│   └── RELEASE_RUNBOOK.md            # Step-by-step release instructions
 ├── .env.example                      # Environment variable template
 ├── LICENSE                           # Apache 2.0 License
 ├── pom.xml                           # Maven build configuration
@@ -273,7 +267,6 @@ A: The project includes a `.env.example` template file:
    ```
 
 > **Important:** `.env` is gitignored. Never commit it to version control.
-> See [docs/MONITORING.md](docs/MONITORING.md) for more details.
 
 ### Q: How to contribute code?
 
@@ -286,7 +279,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ### Q: How does the CI/CD pipeline work?
 
-A: See [docs/CICD.md](docs/CICD.md) for complete pipeline documentation.
+A: The CI/CD pipeline is configured using reusable workflows from `zhijun-io/workflows`. 
+Check the Actions tab to view workflow runs.
 
 ## Related Resources
 
@@ -294,12 +288,8 @@ A: See [docs/CICD.md](docs/CICD.md) for complete pipeline documentation.
 - [Spring AI Agent Utils](https://github.com/spring-ai-community/spring-ai-agent-utils)
 - [SkillsJars](https://www.skillsjars.com)
 - [Anthropic Skills](https://github.com/anthropics/skills)
-- [CI/CD Guide](docs/CICD.md)
 - [Contributing Guidelines](CONTRIBUTING.md)
 - [Security Policy](SECURITY.md)
-- [Pre-Launch Checklist](docs/PRE_LAUNCH_CHECKLIST.md)
-- [Release Runbook](docs/RELEASE_RUNBOOK.md)
-- [Monitoring Guide](docs/MONITORING.md)
 
 ## License
 
