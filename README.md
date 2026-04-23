@@ -124,8 +124,6 @@ skillsjars-example-spring-ai/
 ├── pom.xml                           # Maven build configuration
 ├── README.md                         # Project documentation
 ├── CHANGELOG.md                      # Version history
-├── CONTRIBUTING.md                   # Contribution guidelines
-├── SECURITY.md                       # Security policy
 └── .editorconfig                     # Editor configuration
 ```
 
@@ -275,8 +273,6 @@ A: Pull Requests are welcome! Please ensure:
 - Follows existing code style
 - Updates relevant documentation
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
-
 ### Q: How does the CI/CD pipeline work?
 
 A: The CI/CD pipeline is configured using reusable workflows from `zhijun-io/workflows`. 
@@ -288,8 +284,6 @@ Check the Actions tab to view workflow runs.
 - [Spring AI Agent Utils](https://github.com/spring-ai-community/spring-ai-agent-utils)
 - [SkillsJars](https://www.skillsjars.com)
 - [Anthropic Skills](https://github.com/anthropics/skills)
-- [Contributing Guidelines](CONTRIBUTING.md)
-- [Security Policy](SECURITY.md)
 
 ## License
 
